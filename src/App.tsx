@@ -23,10 +23,13 @@ const LINES = [
     [2, 4, 6],
 ];
 
-function LineValue({value, tilt}: {value:number, tilt:number}) {
+function LineValue({value, isBest, tilt}: {value:number, isBest:boolean, tilt:number}) {
     return (
         <td>
-            <div style={{transform:`rotate(${tilt}deg)`}}>
+            <div style={{
+                transform:`rotate(${tilt}deg)`,
+                color: isBest ? "lime" : "white"
+            }}>
                 {value.toFixed(0)}
             </div>
         </td>
@@ -43,37 +46,38 @@ function Board() {
     }
 
     const payouts = linePayouts(squares);
+    const isBest = bestPayouts(payouts);
 
     return (
         <>
         <table>
         <tbody>
             <tr>
-                <LineValue value={payouts[6]} tilt={45}/>
-                <LineValue value={payouts[3]} tilt={90}/>
-                <LineValue value={payouts[4]} tilt={90}/>
-                <LineValue value={payouts[5]} tilt={90}/>
+                <LineValue value={payouts[6]} isBest={isBest[6]} tilt={45}/>
+                <LineValue value={payouts[3]} isBest={isBest[3]} tilt={90}/>
+                <LineValue value={payouts[4]} isBest={isBest[4]} tilt={90}/>
+                <LineValue value={payouts[5]} isBest={isBest[5]} tilt={90}/>
             </tr>
             <tr>
-                <LineValue value={payouts[0]} tilt={0}/>
+                <LineValue value={payouts[0]} isBest={isBest[0]} tilt={0}/>
                 <Square value={squares[0]} onSquareInput={(v) => handleInput(0, v)} />
                 <Square value={squares[1]} onSquareInput={(v) => handleInput(1, v)} />
                 <Square value={squares[2]} onSquareInput={(v) => handleInput(2, v)} />
             </tr>
             <tr>
-                <LineValue value={payouts[1]} tilt={0}/>
+                <LineValue value={payouts[1]} isBest={isBest[1]} tilt={0}/>
                 <Square value={squares[3]} onSquareInput={(v) => handleInput(3, v)} />
                 <Square value={squares[4]} onSquareInput={(v) => handleInput(4, v)} />
                 <Square value={squares[5]} onSquareInput={(v) => handleInput(5, v)} />
             </tr>
             <tr>
-                <LineValue value={payouts[2]} tilt={0}/>
+                <LineValue value={payouts[2]} isBest={isBest[2]} tilt={0}/>
                 <Square value={squares[6]} onSquareInput={(v) => handleInput(6, v)} />
                 <Square value={squares[7]} onSquareInput={(v) => handleInput(7, v)} />
                 <Square value={squares[8]} onSquareInput={(v) => handleInput(8, v)} />
             </tr>
             <tr>
-                <LineValue value={payouts[7]} tilt={-45}/>
+                <LineValue value={payouts[7]} isBest={isBest[7]} tilt={-45}/>
             </tr>
         </tbody>
         </table>
@@ -97,6 +101,11 @@ function linePayouts(squares: (number|null)[]): number[] {
     });
 
     return expectedPayouts;
+}
+
+function bestPayouts(payouts: number[]): boolean[] {
+    const max = Math.max(...payouts);
+    return payouts.map((num) => Math.abs(max-num) < 0.1);
 }
 
 function expectedValueOfLine(knownNumbers: number[], unknownNumbers: number[]) {
