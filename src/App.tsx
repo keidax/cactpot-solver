@@ -34,14 +34,12 @@ function LineValue({value, tilt}: {value:number, tilt:number}) {
 }
 
 function Board() {
-    const [squares, setSquares] = React.useState<number[]>(Array(9).fill(null));
+    const [squares, setSquares] = React.useState<(number|null)[]>(Array(9).fill(null));
 
-    function handleInput(i:number, event:any) {
-        if (event.nativeEvent.data) {
-            const nextSquares = squares.slice();
-            nextSquares[i] = Number(event.nativeEvent.data);
-            setSquares(nextSquares);
-        }
+    function handleInput(squareIndex:number, newValue:number|null) {
+        const nextSquares = squares.slice();
+        nextSquares[squareIndex] = newValue;
+        setSquares(nextSquares);
     }
 
     const payouts = linePayouts(squares);
@@ -58,21 +56,21 @@ function Board() {
             </tr>
             <tr>
                 <LineValue value={payouts[0]} tilt={0}/>
-                <Square value={squares[0]} onSquareInput={(event: InputEvent) => handleInput(0, event)} />
-                <Square value={squares[1]} onSquareInput={(event: InputEvent) => handleInput(1, event)} />
-                <Square value={squares[2]} onSquareInput={(event: InputEvent) => handleInput(2, event)} />
+                <Square value={squares[0]} onSquareInput={(v) => handleInput(0, v)} />
+                <Square value={squares[1]} onSquareInput={(v) => handleInput(1, v)} />
+                <Square value={squares[2]} onSquareInput={(v) => handleInput(2, v)} />
             </tr>
             <tr>
                 <LineValue value={payouts[1]} tilt={0}/>
-                <Square value={squares[3]} onSquareInput={(event: InputEvent) => handleInput(3, event)} />
-                <Square value={squares[4]} onSquareInput={(event: InputEvent) => handleInput(4, event)} />
-                <Square value={squares[5]} onSquareInput={(event: InputEvent) => handleInput(5, event)} />
+                <Square value={squares[3]} onSquareInput={(v) => handleInput(3, v)} />
+                <Square value={squares[4]} onSquareInput={(v) => handleInput(4, v)} />
+                <Square value={squares[5]} onSquareInput={(v) => handleInput(5, v)} />
             </tr>
             <tr>
                 <LineValue value={payouts[2]} tilt={0}/>
-                <Square value={squares[6]} onSquareInput={(event: InputEvent) => handleInput(6, event)} />
-                <Square value={squares[7]} onSquareInput={(event: InputEvent) => handleInput(7, event)} />
-                <Square value={squares[8]} onSquareInput={(event: InputEvent) => handleInput(8, event)} />
+                <Square value={squares[6]} onSquareInput={(v) => handleInput(6, v)} />
+                <Square value={squares[7]} onSquareInput={(v) => handleInput(7, v)} />
+                <Square value={squares[8]} onSquareInput={(v) => handleInput(8, v)} />
             </tr>
             <tr>
                 <LineValue value={payouts[7]} tilt={-45}/>
