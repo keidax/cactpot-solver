@@ -12,6 +12,27 @@ function App() {
     );
 }
 
+const LINES = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
+];
+
+function LineValue({value, tilt}: {value:number, tilt:number}) {
+    return (
+        <td>
+            <div style={{transform:`rotate(${tilt}deg)`}}>
+                {value.toFixed(0)}
+            </div>
+        </td>
+    )
+}
+
 function Board() {
     const [squares, setSquares] = React.useState<number[]>(Array(9).fill(null));
 
@@ -20,46 +41,52 @@ function Board() {
             const nextSquares = squares.slice();
             nextSquares[i] = Number(event.nativeEvent.data);
             setSquares(nextSquares);
-            findBestLine(nextSquares);
         }
     }
 
+    const payouts = linePayouts(squares);
+
     return (
         <>
-        <div className="board-row">
-        <Square value={squares[0]} onSquareInput={(event: InputEvent) => handleInput(0, event)} />
-        <Square value={squares[1]} onSquareInput={(event: InputEvent) => handleInput(1, event)} />
-        <Square value={squares[2]} onSquareInput={(event: InputEvent) => handleInput(2, event)} />
-        </div>
-        <div className="board-row">
-        <Square value={squares[3]} onSquareInput={(event: InputEvent) => handleInput(3, event)} />
-        <Square value={squares[4]} onSquareInput={(event: InputEvent) => handleInput(4, event)} />
-        <Square value={squares[5]} onSquareInput={(event: InputEvent) => handleInput(5, event)} />
-        </div>
-        <div className="board-row">
-        <Square value={squares[6]} onSquareInput={(event: InputEvent) => handleInput(6, event)} />
-        <Square value={squares[7]} onSquareInput={(event: InputEvent) => handleInput(7, event)} />
-        <Square value={squares[8]} onSquareInput={(event: InputEvent) => handleInput(8, event)} />
-        </div>
+        <table>
+        <tbody>
+            <tr>
+                <LineValue value={payouts[6]} tilt={45}/>
+                <LineValue value={payouts[3]} tilt={90}/>
+                <LineValue value={payouts[4]} tilt={90}/>
+                <LineValue value={payouts[5]} tilt={90}/>
+            </tr>
+            <tr>
+                <LineValue value={payouts[0]} tilt={0}/>
+                <Square value={squares[0]} onSquareInput={(event: InputEvent) => handleInput(0, event)} />
+                <Square value={squares[1]} onSquareInput={(event: InputEvent) => handleInput(1, event)} />
+                <Square value={squares[2]} onSquareInput={(event: InputEvent) => handleInput(2, event)} />
+            </tr>
+            <tr>
+                <LineValue value={payouts[1]} tilt={0}/>
+                <Square value={squares[3]} onSquareInput={(event: InputEvent) => handleInput(3, event)} />
+                <Square value={squares[4]} onSquareInput={(event: InputEvent) => handleInput(4, event)} />
+                <Square value={squares[5]} onSquareInput={(event: InputEvent) => handleInput(5, event)} />
+            </tr>
+            <tr>
+                <LineValue value={payouts[2]} tilt={0}/>
+                <Square value={squares[6]} onSquareInput={(event: InputEvent) => handleInput(6, event)} />
+                <Square value={squares[7]} onSquareInput={(event: InputEvent) => handleInput(7, event)} />
+                <Square value={squares[8]} onSquareInput={(event: InputEvent) => handleInput(8, event)} />
+            </tr>
+            <tr>
+                <LineValue value={payouts[7]} tilt={-45}/>
+            </tr>
+        </tbody>
+        </table>
         </>
     )
 }
 
-function findBestLine(squares: (number|null)[]) {
-    const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6],
-    ];
-
+function linePayouts(squares: (number|null)[]): number[] {
     const unknowns = unknownNumbers(squares);
 
-    const expectedPayouts = lines.map((line) => {
+    const expectedPayouts = LINES.map((line) => {
         let lineNumbers = [];
         for (const index of line) {
             const square = squares[index];
@@ -71,7 +98,7 @@ function findBestLine(squares: (number|null)[]) {
         return expectedValueOfLine(lineNumbers, unknowns);
     });
 
-    console.log(expectedPayouts);
+    return expectedPayouts;
 }
 
 function expectedValueOfLine(knownNumbers: number[], unknownNumbers: number[]) {
