@@ -8,7 +8,7 @@ function Square({ value, onSquareInput } : { value:number|null, onSquareInput: (
     }
 
     function onSquareChange(event: React.ChangeEvent<HTMLInputElement>) {
-        const number = Number(event.target.value);
+        const number = Number(event.target.value.slice(-1));
         if (number >= 1 && number <= 9) {
             onSquareInput(number);
         } else {
