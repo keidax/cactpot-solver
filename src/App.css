@@ -28,11 +28,33 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.board-header {
+    height: 2ch;
+}
+
+.number-vertical {
+    position: absolute;
+    transform: translateX(-100%) rotate(90deg);
+    transform-origin: 100% 100%;
+}
+
+.number-diagonal {
+    position: absolute;
+    transform: translateX(-100%) translateX(2ch) rotate(45deg);
+    transform-origin: 100% 100%;
+}
+
+.number-other-diagonal {
+    position: absolute;
+    transform: translateX(-100%) rotate(-45deg);
+    transform-origin: 100% 0%;
+}
+
+.number-horizontal {
+    text-align: right;
+}
+
+.cell-vertical {
+    vertical-align: top;
+    width: 2ch;
 }

@@ -25,14 +25,11 @@ const LINES = [
 
 function LineValue({value, isBest, tilt}: {value:number, isBest:boolean, tilt:number}) {
     return (
-        <td>
             <div style={{
-                transform:`rotate(${tilt}deg)`,
-                color: isBest ? "lime" : "white"
+                color: isBest ? "lime" : "white",
             }}>
                 {value.toFixed(0)}
             </div>
-        </td>
     )
 }
 
@@ -52,32 +49,64 @@ function Board() {
         <>
         <table>
         <tbody>
-            <tr>
-                <LineValue value={payouts[6]} isBest={isBest[6]} tilt={45}/>
-                <LineValue value={payouts[3]} isBest={isBest[3]} tilt={90}/>
-                <LineValue value={payouts[4]} isBest={isBest[4]} tilt={90}/>
-                <LineValue value={payouts[5]} isBest={isBest[5]} tilt={90}/>
+            <tr className="board-header">
+                <td className="cell-vertical">
+                    <div className="number-diagonal">
+                        <LineValue value={payouts[6]} isBest={isBest[6]} tilt={45}/>
+                    </div>
+                </td>
+                <td className="cell-vertical">
+                    <div className="number-vertical">
+                        <LineValue value={payouts[3]} isBest={isBest[3]} tilt={90}/>
+                    </div>
+                </td>
+                <td className="cell-vertical">
+                    <div className="number-vertical">
+                        <LineValue value={payouts[4]} isBest={isBest[4]} tilt={90}/>
+                    </div>
+                </td>
+                <td className="cell-vertical">
+                    <div className="number-vertical">
+                        <LineValue value={payouts[5]} isBest={isBest[5]} tilt={90}/>
+                    </div>
+                </td>
             </tr>
             <tr>
-                <LineValue value={payouts[0]} isBest={isBest[0]} tilt={0}/>
+                <td>
+                    <div className="number-horizontal">
+                        <LineValue value={payouts[0]} isBest={isBest[0]} tilt={0}/>
+                    </div>
+                </td>
                 <Square value={squares[0]} onSquareInput={(v) => handleInput(0, v)} />
                 <Square value={squares[1]} onSquareInput={(v) => handleInput(1, v)} />
                 <Square value={squares[2]} onSquareInput={(v) => handleInput(2, v)} />
             </tr>
             <tr>
-                <LineValue value={payouts[1]} isBest={isBest[1]} tilt={0}/>
+                <td>
+                    <div className="number-horizontal">
+                        <LineValue value={payouts[1]} isBest={isBest[1]} tilt={0}/>
+                    </div>
+                </td>
                 <Square value={squares[3]} onSquareInput={(v) => handleInput(3, v)} />
                 <Square value={squares[4]} onSquareInput={(v) => handleInput(4, v)} />
                 <Square value={squares[5]} onSquareInput={(v) => handleInput(5, v)} />
             </tr>
             <tr>
-                <LineValue value={payouts[2]} isBest={isBest[2]} tilt={0}/>
+                <td>
+                    <div className="number-horizontal">
+                        <LineValue value={payouts[2]} isBest={isBest[2]} tilt={0}/>
+                    </div>
+                </td>
                 <Square value={squares[6]} onSquareInput={(v) => handleInput(6, v)} />
                 <Square value={squares[7]} onSquareInput={(v) => handleInput(7, v)} />
                 <Square value={squares[8]} onSquareInput={(v) => handleInput(8, v)} />
             </tr>
-            <tr>
-                <LineValue value={payouts[7]} isBest={isBest[7]} tilt={-45}/>
+            <tr className="board-header">
+                <td>
+                    <div className="number-other-diagonal">
+                        <LineValue value={payouts[7]} isBest={isBest[7]} tilt={-45}/>
+                    </div>
+                </td>
             </tr>
         </tbody>
         </table>
