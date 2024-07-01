@@ -23,13 +23,13 @@ const LINES = [
     [2, 4, 6],
 ];
 
-function LineValue({value, isBest, tilt}: {value:number, isBest:boolean, tilt:number}) {
+function LineValue({value, isBest}: {value:number, isBest:boolean}) {
     return (
-            <div style={{
+            <span style={{
                 color: isBest ? "lime" : "white",
             }}>
                 {value.toFixed(0)}
-            </div>
+            </span>
     )
 }
 
@@ -46,71 +46,71 @@ function Board() {
     const isBest = bestPayouts(payouts);
 
     return (
-        <>
-        <table>
+      <>
+      <table>
         <tbody>
-            <tr className="board-header">
-                <td className="cell-vertical">
-                    <div className="number-diagonal">
-                        <LineValue value={payouts[6]} isBest={isBest[6]} tilt={45}/>
-                    </div>
-                </td>
-                <td className="cell-vertical">
-                    <div className="number-vertical">
-                        <LineValue value={payouts[3]} isBest={isBest[3]} tilt={90}/>
-                    </div>
-                </td>
-                <td className="cell-vertical">
-                    <div className="number-vertical">
-                        <LineValue value={payouts[4]} isBest={isBest[4]} tilt={90}/>
-                    </div>
-                </td>
-                <td className="cell-vertical">
-                    <div className="number-vertical">
-                        <LineValue value={payouts[5]} isBest={isBest[5]} tilt={90}/>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div className="number-horizontal">
-                        <LineValue value={payouts[0]} isBest={isBest[0]} tilt={0}/>
-                    </div>
-                </td>
-                <Square value={squares[0]} onSquareInput={(v) => handleInput(0, v)} />
-                <Square value={squares[1]} onSquareInput={(v) => handleInput(1, v)} />
-                <Square value={squares[2]} onSquareInput={(v) => handleInput(2, v)} />
-            </tr>
-            <tr>
-                <td>
-                    <div className="number-horizontal">
-                        <LineValue value={payouts[1]} isBest={isBest[1]} tilt={0}/>
-                    </div>
-                </td>
-                <Square value={squares[3]} onSquareInput={(v) => handleInput(3, v)} />
-                <Square value={squares[4]} onSquareInput={(v) => handleInput(4, v)} />
-                <Square value={squares[5]} onSquareInput={(v) => handleInput(5, v)} />
-            </tr>
-            <tr>
-                <td>
-                    <div className="number-horizontal">
-                        <LineValue value={payouts[2]} isBest={isBest[2]} tilt={0}/>
-                    </div>
-                </td>
-                <Square value={squares[6]} onSquareInput={(v) => handleInput(6, v)} />
-                <Square value={squares[7]} onSquareInput={(v) => handleInput(7, v)} />
-                <Square value={squares[8]} onSquareInput={(v) => handleInput(8, v)} />
-            </tr>
-            <tr className="board-header">
-                <td>
-                    <div className="number-other-diagonal">
-                        <LineValue value={payouts[7]} isBest={isBest[7]} tilt={-45}/>
-                    </div>
-                </td>
-            </tr>
+          <tr>
+            <td className="cell-rotated-right">
+              <div className="number-diagonal">
+                <LineValue value={payouts[6]} isBest={isBest[6]} />
+              </div>
+            </td>
+            <td className="cell-rotated-center">
+              <div className="number-vertical">
+                <LineValue value={payouts[3]} isBest={isBest[3]} />
+              </div>
+            </td>
+            <td className="cell-rotated-center">
+              <div className="number-vertical">
+                <LineValue value={payouts[4]} isBest={isBest[4]} />
+              </div>
+            </td>
+            <td className="cell-rotated-center">
+              <div className="number-vertical">
+                <LineValue value={payouts[5]} isBest={isBest[5]} />
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div className="number-horizontal">
+                <LineValue value={payouts[0]} isBest={isBest[0]} />
+              </div>
+            </td>
+            <Square value={squares[0]} onSquareInput={(v) => handleInput(0, v)} />
+            <Square value={squares[1]} onSquareInput={(v) => handleInput(1, v)} />
+            <Square value={squares[2]} onSquareInput={(v) => handleInput(2, v)} />
+          </tr>
+          <tr>
+            <td>
+              <div className="number-horizontal">
+                <LineValue value={payouts[1]} isBest={isBest[1]} />
+              </div>
+            </td>
+            <Square value={squares[3]} onSquareInput={(v) => handleInput(3, v)} />
+            <Square value={squares[4]} onSquareInput={(v) => handleInput(4, v)} />
+            <Square value={squares[5]} onSquareInput={(v) => handleInput(5, v)} />
+          </tr>
+          <tr>
+            <td>
+              <div className="number-horizontal">
+                <LineValue value={payouts[2]} isBest={isBest[2]} />
+              </div>
+            </td>
+            <Square value={squares[6]} onSquareInput={(v) => handleInput(6, v)} />
+            <Square value={squares[7]} onSquareInput={(v) => handleInput(7, v)} />
+            <Square value={squares[8]} onSquareInput={(v) => handleInput(8, v)} />
+          </tr>
+          <tr>
+            <td className="cell-rotated-right">
+              <div className="number-other-diagonal">
+                <LineValue value={payouts[7]} isBest={isBest[7]} />
+              </div>
+            </td>
+          </tr>
         </tbody>
-        </table>
-        </>
+      </table>
+      </>
     )
 }
 

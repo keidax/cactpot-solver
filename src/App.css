@@ -2,17 +2,6 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -28,33 +17,38 @@
   color: #61dafb;
 }
 
-.board-header {
-    height: 2ch;
-}
-
 .number-vertical {
+    display: inline;
     position: absolute;
-    transform: translateX(-100%) rotate(90deg);
-    transform-origin: 100% 100%;
+    transform: translateX(-100%) translateY(-50%) rotate(90deg);
+    transform-origin: 100% 50%;
 }
 
 .number-diagonal {
+    display: inline;
     position: absolute;
-    transform: translateX(-100%) translateX(2ch) rotate(45deg);
-    transform-origin: 100% 100%;
+    transform: translateX(-100%) translateY(-50%) rotate(45deg);
+    transform-origin: 100% 50%;
 }
 
 .number-other-diagonal {
+    display: inline;
     position: absolute;
-    transform: translateX(-100%) rotate(-45deg);
-    transform-origin: 100% 0%;
+    transform: translateX(-100%) translateY(-50%) rotate(-45deg);
+    transform-origin: 100% 50%;
 }
 
 .number-horizontal {
     text-align: right;
 }
 
-.cell-vertical {
-    vertical-align: top;
-    width: 2ch;
+.cell-rotated-center {
+    text-align: center;
+    vertical-align: bottom;
+    height: 2ch;
+}
+
+.cell-rotated-right {
+    text-align: right;
+    vertical-align: bottom;
 }
