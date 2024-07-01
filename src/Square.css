@@ -1,5 +1,7 @@
 .number-input {
-    width: 4ch;
-    height: 4ch;
+    width: 3ch;
+    height: 3ch;
     text-align: center;
+    font-size: 1.3rem;
+    margin: 0.8ch;
 }

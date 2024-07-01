@@ -40,6 +40,7 @@
 
 .number-horizontal {
     text-align: right;
+    width: 5ch;
 }
 
 .cell-rotated-center {
