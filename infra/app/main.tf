@@ -18,9 +18,15 @@ provider "aws" {
   region = "us-east-2"
 }
 
+provider "aws" {
+  alias  = "east1"
+  region = "us-east-1"
+}
+
 locals {
   app_name    = "cactpot-solver"
   origin_name = "${local.app_name}-s3-origin"
+  domain_name = "minicactpotsolver.xyz"
 }
 
 resource "aws_s3_bucket" "site_content" {
@@ -77,6 +83,8 @@ resource "aws_cloudfront_distribution" "site_distribution" {
   is_ipv6_enabled     = true
   default_root_object = "index.html"
 
+  aliases = [local.domain_name]
+
   price_class = "PriceClass_All"
 
   default_cache_behavior {
@@ -95,6 +103,29 @@ resource "aws_cloudfront_distribution" "site_distribution" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    acm_certificate_arn = aws_acm_certificate_validation.cert.certificate_arn
+    ssl_support_method  = "sni-only"
   }
+}
+
+resource "aws_acm_certificate" "cert" {
+  provider          = aws.east1
+  domain_name       = local.domain_name
+  validation_method = "DNS"
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_acm_certificate_validation" "cert" {
+  provider        = aws.east1
+  certificate_arn = aws_acm_certificate.cert.arn
+}
+
+output "domain_validation" {
+  value = aws_acm_certificate.cert.domain_validation_options
+}
+
+output "cloudfront_domain" {
+  value = aws_cloudfront_distribution.site_distribution.domain_name
 }
