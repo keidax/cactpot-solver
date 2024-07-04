@@ -53,3 +53,8 @@
     text-align: right;
     vertical-align: bottom;
 }
+
+.board-table {
+    /* Negate the width of .number-horizontal so the board is centered while ignoring label text. */
+    margin-left: -5ch;
+}

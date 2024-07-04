@@ -56,7 +56,7 @@ function Board() {
 
     return (
       <>
-      <table>
+      <table className="board-table">
         <tbody>
           <tr>
             <td className="cell-rotated-right">
