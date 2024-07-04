@@ -2,6 +2,7 @@
     width: 3ch;
     height: 3ch;
     text-align: center;
-    font-size: 1.3rem;
-    margin: 0.8ch;
+    font-size: 1.6rem;
+    margin: 0.4ch;
+    border-radius: 50%;
 }
