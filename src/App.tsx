@@ -37,7 +37,16 @@ function Board() {
     const [squares, setSquares] = React.useState<(number|null)[]>(Array(9).fill(null));
 
     function handleInput(squareIndex:number, newValue:number|null) {
-        const nextSquares = squares.slice();
+        // The board can't have duplicate numbers, so replace any instances of the new number
+        // with null.
+        let nextSquares = squares.map((num) => {
+            if (newValue !== null && num === newValue) {
+                return null
+            } else {
+                return num
+            }
+        })
+
         nextSquares[squareIndex] = newValue;
         setSquares(nextSquares);
     }
