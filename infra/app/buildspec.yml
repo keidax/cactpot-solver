@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+
+  pre_build:
+    commands:
+      - "npm install"
+
+  build:
+    commands:
+      - "npm run build"
+
+  post_build:
+    commands:
+      - "aws s3 cp build/ s3://${BUCKET_NAME} --recursive"
