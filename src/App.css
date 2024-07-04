@@ -58,3 +58,8 @@
     /* Negate the width of .number-horizontal so the board is centered while ignoring label text. */
     margin-left: -5ch;
 }
+
+hr {
+    margin-top: 8ch;
+    width: 20ch;
+}

@@ -6,7 +6,19 @@ function App() {
     return (
         <div className="App">
         <header className="App-header">
+        <h2>Mini Cactpot Solver</h2>
+        <p/>
         <Board/>
+        <hr/>
+        <p>
+            Instructions:
+            <br/>
+            Fill out digits on the mini cactpot board.
+            <br/>
+            The numbers for each line show the expected value in MGP.
+            <br/>
+            The highest expected payout will be highlighted in green.
+        </p>
         </header>
         </div>
     );
