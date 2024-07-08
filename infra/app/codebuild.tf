@@ -28,6 +28,10 @@ resource "aws_codebuild_project" "codebuild" {
       value = aws_s3_bucket.site_content.id
     }
   }
+
+  tags = {
+    service = "pipeline"
+  }
 }
 
 data "aws_iam_policy_document" "codebuild_assume_role" {
@@ -46,6 +50,10 @@ data "aws_iam_policy_document" "codebuild_assume_role" {
 resource "aws_iam_role" "codebuild_role" {
   name               = "${local.app_name}-codebuild-role"
   assume_role_policy = data.aws_iam_policy_document.codebuild_assume_role.json
+
+  tags = {
+    service = "pipeline"
+  }
 }
 
 data "aws_iam_policy_document" "codebuild_policy" {

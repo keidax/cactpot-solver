@@ -16,11 +16,23 @@ terraform {
 
 provider "aws" {
   region = "us-east-2"
+
+  default_tags {
+    tags = {
+      app = local.app_name
+    }
+  }
 }
 
 provider "aws" {
   alias  = "east1"
   region = "us-east-1"
+
+  default_tags {
+    tags = {
+      app = local.app_name
+    }
+  }
 }
 
 locals {
@@ -31,6 +43,10 @@ locals {
 
 resource "aws_s3_bucket" "site_content" {
   bucket = "${local.app_name}-site-content"
+
+  tags = {
+    service = "static-site"
+  }
 }
 
 resource "aws_s3_bucket_versioning" "site_content_versioning" {
@@ -106,14 +122,23 @@ resource "aws_cloudfront_distribution" "site_distribution" {
     acm_certificate_arn = aws_acm_certificate_validation.cert.certificate_arn
     ssl_support_method  = "sni-only"
   }
+
+  tags = {
+    service = "static-site"
+  }
 }
 
 resource "aws_acm_certificate" "cert" {
   provider          = aws.east1
   domain_name       = local.domain_name
   validation_method = "DNS"
+
   lifecycle {
     create_before_destroy = true
+  }
+
+  tags = {
+    service = "static-site"
   }
 }
 
