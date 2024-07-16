@@ -45,6 +45,16 @@ function LineValue({value, isBest}: {value:number, isBest:boolean}) {
     )
 }
 
+function HeaderCell({position, rotation, children}: {position:string, rotation:string, children:any}) {
+    return (
+        <td className={`cell-header-${position}`}>
+          <div className={`rotate-header rotate-header-${rotation}`} >
+            {children}
+          </div>
+        </td>
+    )
+}
+
 function Board() {
     const [squares, setSquares] = React.useState<(number|null)[]>(Array(9).fill(null));
 
@@ -71,63 +81,53 @@ function Board() {
       <table className="board-table">
         <tbody>
           <tr>
-            <td className="cell-rotated-right">
-              <div className="number-diagonal">
-                <LineValue value={payouts[6]} isBest={isBest[6]} />
-              </div>
-            </td>
-            <td className="cell-rotated-center">
-              <div className="number-vertical">
-                <LineValue value={payouts[3]} isBest={isBest[3]} />
-              </div>
-            </td>
-            <td className="cell-rotated-center">
-              <div className="number-vertical">
-                <LineValue value={payouts[4]} isBest={isBest[4]} />
-              </div>
-            </td>
-            <td className="cell-rotated-center">
-              <div className="number-vertical">
-                <LineValue value={payouts[5]} isBest={isBest[5]} />
-              </div>
-            </td>
+            <HeaderCell position="corner" rotation="45">
+              <LineValue value={payouts[6]} isBest={isBest[6]} />
+            </HeaderCell>
+
+            <HeaderCell position="top" rotation="90">
+              <LineValue value={payouts[3]} isBest={isBest[3]} />
+            </HeaderCell>
+
+            <HeaderCell position="top" rotation="90">
+              <LineValue value={payouts[4]} isBest={isBest[4]} />
+            </HeaderCell>
+
+            <HeaderCell position="top" rotation="90">
+              <LineValue value={payouts[5]} isBest={isBest[5]} />
+            </HeaderCell>
           </tr>
           <tr>
-            <td>
-              <div className="number-horizontal">
-                <LineValue value={payouts[0]} isBest={isBest[0]} />
-              </div>
-            </td>
+            <HeaderCell position="side" rotation="0">
+              <LineValue value={payouts[0]} isBest={isBest[0]} />
+            </HeaderCell>
+
             <Square value={squares[0]} onSquareInput={(v) => handleInput(0, v)} />
             <Square value={squares[1]} onSquareInput={(v) => handleInput(1, v)} />
             <Square value={squares[2]} onSquareInput={(v) => handleInput(2, v)} />
           </tr>
           <tr>
-            <td>
-              <div className="number-horizontal">
-                <LineValue value={payouts[1]} isBest={isBest[1]} />
-              </div>
-            </td>
+            <HeaderCell position="side" rotation="0">
+              <LineValue value={payouts[1]} isBest={isBest[1]} />
+            </HeaderCell>
+
             <Square value={squares[3]} onSquareInput={(v) => handleInput(3, v)} />
             <Square value={squares[4]} onSquareInput={(v) => handleInput(4, v)} />
             <Square value={squares[5]} onSquareInput={(v) => handleInput(5, v)} />
           </tr>
           <tr>
-            <td>
-              <div className="number-horizontal">
-                <LineValue value={payouts[2]} isBest={isBest[2]} />
-              </div>
-            </td>
+            <HeaderCell position="side" rotation="0">
+              <LineValue value={payouts[2]} isBest={isBest[2]} />
+            </HeaderCell>
+
             <Square value={squares[6]} onSquareInput={(v) => handleInput(6, v)} />
             <Square value={squares[7]} onSquareInput={(v) => handleInput(7, v)} />
             <Square value={squares[8]} onSquareInput={(v) => handleInput(8, v)} />
           </tr>
           <tr>
-            <td className="cell-rotated-right">
-              <div className="number-other-diagonal">
-                <LineValue value={payouts[7]} isBest={isBest[7]} />
-              </div>
-            </td>
+            <HeaderCell position="corner" rotation="-45">
+              <LineValue value={payouts[7]} isBest={isBest[7]} />
+            </HeaderCell>
           </tr>
         </tbody>
       </table>

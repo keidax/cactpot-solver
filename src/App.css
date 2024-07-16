@@ -17,45 +17,47 @@
   color: #61dafb;
 }
 
-.number-vertical {
-    display: inline;
-    position: absolute;
-    transform: translateX(-100%) translateY(-50%) rotate(90deg);
-    transform-origin: 100% 50%;
-}
-
-.number-diagonal {
-    display: inline;
-    position: absolute;
-    transform: translateX(-100%) translateY(-50%) rotate(45deg);
-    transform-origin: 100% 50%;
-}
-
-.number-other-diagonal {
-    display: inline;
-    position: absolute;
-    transform: translateX(-100%) translateY(-50%) rotate(-45deg);
-    transform-origin: 100% 50%;
-}
-
-.number-horizontal {
-    text-align: right;
-    width: 5ch;
-}
-
-.cell-rotated-center {
+.cell-header-top {
     text-align: center;
     vertical-align: bottom;
     height: 2ch;
 }
 
-.cell-rotated-right {
+.cell-header-corner {
     text-align: right;
     vertical-align: bottom;
 }
 
+.cell-header-side {
+    text-align: right;
+    width: 5ch;
+}
+
+.rotate-header {
+    display: inline;
+    position: absolute;
+    transform-origin: 100% 50%;
+}
+
+.rotate-header-90 {
+    transform: translateX(-100%) translateY(-50%) rotate(90deg);
+}
+
+.rotate-header-45 {
+    transform: translateX(-100%) translateY(-50%) rotate(45deg);
+}
+
+.rotate-header--45 {
+    transform: translateX(-100%) translateY(-50%) rotate(-45deg);
+}
+
+.rotate-header-0 {
+    transform: translateX(-100%) translateY(-50%) rotate(0deg);
+}
+
+
 .board-table {
-    /* Negate the width of .number-horizontal so the board is centered while ignoring label text. */
+    /* Negate the width of .cell-header-side so the board is centered while ignoring label text. */
     margin-left: -5ch;
 }
 
